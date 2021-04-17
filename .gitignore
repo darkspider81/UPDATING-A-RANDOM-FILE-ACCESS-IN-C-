@@ -1,32 +1,83 @@
-# Prerequisites
-*.d
+//file updating: random access
+#include<iostream>
+#include<fstream>
+#include<iomanip>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+class Inventory
+{
+    char name[10];
+    int code;
+    float cost;
+public:
+    void getdata()
+}
+cout<<"\nEnter name";
+cin>>name;
+cout<<"\nEnter code";
+cin>>code;
+cout<<"\nEnter cost";
+cin>>cost;
+void displaydata()
+{
+    cout<<setw(10)<<name
+    <<setw(10)<<code
+    <<setprecision(2)<,setw(10)<<cost<<endl;
+}
+};
+void main()
+{
+    Inventory item;
+    fstream inoutfile;
+    inoutfile.open("Stock.Dat", ios::ate|ios::out|ios::binary);
+    inoutfile.seekg(0, ios::beg);
+    cout<<"Current Contents of Stock"<<"\n";
+    while(inoutfile.read((char*)& item, sizeof item)
+    {
+        item.displaydata();
+    }
+    inoutfile.clear();
+    //addimg one more item
+    cout<<"\nAdd an Item\n";
+    item.getdata();
+    char c;
+    cin.get(ch);
+    inoutfile.write((char *)& item, sizeof item);
+    //display the appended file
+    inoutfile.seekg(0);
+    cout<<"Contents of Appended File\n";
+    while(inoutfile.read((char *)& item, sizeof item)
+          {
+              item.displaydata();
+          }
+          //find number of objects in file
+          int last=inoutfile.tellg();
+          int n=last/sizeof(item);
 
-# Precompiled Headers
-*.gch
-*.pch
+          cout<<"Number of Objects="<<n<<"\n";
+          cout<<"Total bytes in the file="<<last<<"\n";
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+          //modify details of an item
+          cout<<"Enter object number to be updated\n";
+          int object;
+          cin>>object;
 
-# Fortran module files
-*.mod
-*.smod
+          cin.get(ch);
+          int location=(object-1)*sizeof(item);
+          if(inoutfile.eof())
+            inoutfile.clear();
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+    inoutfile.seekp(location);
+    cout<<"Enter new values of the objects \n";
+    item.getdata();
+    cin.get(ch);
 
-# Executables
-*.exe
-*.out
-*.app
+    inoutfile.write((char *)& item, sizeof item)<<flush;
+
+    //shoe updated file
+    inoutfile.seekg(0);
+    while(inoutfile.read((char *)& item, sizeof item)
+          {
+              item.displaydata();
+          }
+          inoutfile.close();
+}
